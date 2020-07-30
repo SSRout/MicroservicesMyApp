@@ -4,11 +4,17 @@ version: '3.4'
 services:
   catalogdb:
     image: mongo
+
+  cartdb:
+    image: redis
     
-  catalog:
-    image: catalog.api
+  catalog.api:
+    image: catalogapi
     build:
       context: .
       dockerfile: src/Catalog/Catalog.API/Dockerfile
-    ports:
-      - 80
+  cart.api:
+    image: cartapi
+    build:
+      context: .
+      dockerfile: src/Cart/Cart.API/Dockerfile
