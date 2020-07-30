@@ -1,0 +1,29 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+version: '3.4'
+
+services:
+  catalogdb:
+    container_name: catalogdb
+    restart: always
+    volumes:
+        - ${WEBAPP_STORAGE_HOME}/site:/data/db
+        #- ./data:/data/db
+    ports:
+        - "27017:27017"
+
+  catalog:
+    image: catalog.api
+    build:
+      context: .
+      dockerfile: src/Catalog/Catalog.API/Dockerfile
+    ports:
+      - 80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "CatalogDbSettings:ConnectionString=mongodb://catalogdb:27017"
+      - ASPNETCORE_URLS=http://+:80
+    depends_on:
+        - catalogdb
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
+
