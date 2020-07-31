@@ -7,6 +7,9 @@ services:
 
   cartdb:
     image: redis
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
     
   catalog.api:
     image: catalogapi

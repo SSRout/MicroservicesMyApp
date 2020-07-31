@@ -9,13 +9,20 @@ services:
         - ${WEBAPP_STORAGE_HOME}/site:/data/db
         #- ./data:/data/db
     ports:
-        - "6379:6379"
+        - "27017:27017"
 
   cartdb:
     container_name: cartdb
     restart: always
     ports:
-       - "27017:27017"
+       - "6379:6379"
+
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 
   catalog.api:
     image: catalogapi
@@ -43,8 +50,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "ConnectionStrings:Redis=cartdb:6379"
+      - "EventBus:HostName=rabbitmq"
     depends_on:
       - cartdb
+      - rabbitmq
     volumes:
       - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
       - ${HOME}/.aspnet/https:/root/.aspnet/https/

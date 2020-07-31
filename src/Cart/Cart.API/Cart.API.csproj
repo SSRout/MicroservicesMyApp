@@ -4,5 +4,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="StackExchange.Redis" Version="2.1.58"/>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1"/>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\common\EventBusRabbitMq\EventBusRabbitMq.csproj"/>
   </ItemGroup>
 </Project>
