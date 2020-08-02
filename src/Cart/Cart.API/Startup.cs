@@ -48,7 +48,7 @@ namespace Cart.API
                  return new RabbitMqConnection(factory);
              });
             
-            services.AddSingleton<EventBusRabbitMqProducer>();
+           services.AddSingleton<EventBusRabbitMqProducer>();
             services.AddControllers();
         }
 

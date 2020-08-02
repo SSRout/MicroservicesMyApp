@@ -7,7 +7,7 @@ namespace Cart.API.Mapping
     {
         public CartMapping()
         {
-            CreateMap<CheckOut,CartCheckoutEvent>().ReverseMap();
+           CreateMap<CheckOut,CartCheckoutEvent>().ReverseMap();
         }
     }
 }

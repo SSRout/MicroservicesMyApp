@@ -58,9 +58,9 @@ namespace Cart.API.Controllers
             var basketRmoved = await _repo.DelteCart(checkout.UserName);
             if (!basketRmoved) return BadRequest();
 
-            var eventMessage = _mapper.Map<CartCheckoutEvent>(checkout);
-            eventMessage.RequestId = Guid.NewGuid();
-            eventMessage.TotalPrice = checkout.TotalPrice;
+           var eventMessage = _mapper.Map<CartCheckoutEvent>(checkout);
+           eventMessage.RequestId = Guid.NewGuid();
+           eventMessage.TotalPrice = checkout.TotalPrice;
             try{
                 _eventBus.PublishCartCheckpout(EventBusConstants.CartCheckoutQueue,eventMessage);
             }
