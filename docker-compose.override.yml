@@ -26,6 +26,7 @@ services:
 
 
   catalog.api:
+    container_name: catalogapi
     image: catalogapi
     build:
       context: .
@@ -40,8 +41,9 @@ services:
     volumes:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
   cart.api:
-    image: cartapi
+    container_name: cartapi
     build:
       context: .
       dockerfile: src/Cart/Cart.API/Dockerfile

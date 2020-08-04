@@ -1,6 +1,8 @@
-namespace Cart.API.Entities
+﻿using System;
+using Ordering.Core.Entities.Base;
+namespace Ordering.Core.Entities
 {
-    public class CheckOut
+    public class Order:Entity
     {
         public string UserName { get; set; }
         public decimal TotalPrice { get; set; }
