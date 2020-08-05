@@ -12,6 +12,7 @@ using RabbitMQ.Client;
 using StackExchange.Redis;
 using AutoMapper;
 using EventBusRabbitMq.Producer;
+using Microsoft.OpenApi.Models;
 
 namespace Cart.API
 {
@@ -27,6 +28,8 @@ namespace Cart.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
+
             services.AddSingleton<ConnectionMultiplexer>(sp=>{
                 var config=ConfigurationOptions.Parse(Configuration.GetConnectionString("Redis"),true);
                 return ConnectionMultiplexer.Connect(config);
@@ -34,7 +37,8 @@ namespace Cart.API
             services.AddScoped<ICartContext,CartContext>();
             services.AddScoped<ICartRepo,CartRepo>();
             services.AddAutoMapper(typeof(Startup));
-             services.AddSingleton<IRabbitMqConnection>(sp=>{
+
+            services.AddSingleton<IRabbitMqConnection>(sp=>{
                  var factory=new ConnectionFactory(){
                      HostName=Configuration["EventBus:HostName"]
                  };
@@ -48,8 +52,13 @@ namespace Cart.API
                  return new RabbitMqConnection(factory);
              });
             
-           services.AddSingleton<EventBusRabbitMqProducer>();
-            services.AddControllers();
+            services.AddSingleton<EventBusRabbitMqProducer>();
+
+            //Swagger Dependencies
+            services.AddSwaggerGen(x =>
+            {
+                x.SwaggerDoc("v1", new OpenApiInfo { Title = "Cart API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +78,12 @@ namespace Cart.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+               c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cart API v1");
             });
         }
     }

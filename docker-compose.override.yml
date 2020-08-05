@@ -17,6 +17,14 @@ services:
     ports:
        - "6379:6379"
 
+  orderdb:
+    container_name: orderdb
+    ports:
+       - "1433:1433"
+    environment:
+      SA_PASSWORD: "Titan#12"
+      ACCEPT_EULA: "Y"
+
   rabbitmq:
     container_name: rabbitmq
     restart: always
@@ -27,10 +35,6 @@ services:
 
   catalog.api:
     container_name: catalogapi
-    image: catalogapi
-    build:
-      context: .
-      dockerfile: src/Catalog/Catalog.API/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "CatalogDbSettings:ConnectionString=mongodb://catalogdb:27017"
@@ -44,11 +48,8 @@ services:
 
   cart.api:
     container_name: cartapi
-    build:
-      context: .
-      dockerfile: src/Cart/Cart.API/Dockerfile
     ports:
-      - 8001:80
+      - "8001:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "ConnectionStrings:Redis=cartdb:6379"
@@ -59,4 +60,20 @@ services:
     volumes:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+  ordering.api:
+    container_name: orderingapi
+    restart: on-failure
+    environment:
+       - ASPNETCORE_ENVIRONMENT=Development
+       - "ConnectionStrings:OrderConnection=Server=orderdb;Database=OrderDb;User Id=sa;Password=Titan#12"
+       - "EventBus:HostName=rabbitmq"
+    depends_on:
+       - orderdb
+       - rabbitmq
+    volumes:
+       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+    ports:
+       - "8002:80"
   
