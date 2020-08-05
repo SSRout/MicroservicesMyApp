@@ -27,11 +27,18 @@
 |Cart.API| StackExchange.Redis|
 |Cart.API|Swashbuckle.AspNetCore|
 |EventBusRabbitMq|RabbitMQ.Client |
-|Oredering.API||
-|Ordering.Core||
+|Oredering.API|Microsoft.EntityFrameworkCore.Design|
+|Oredering.API|MediatR|
+|Oredering.API|MediatR.Extensions.Microsoft.DependencyInjection|
+|Oredering.API|AutoMapper.Extensions.Microsoft.DependencyInjection|
+|Ordering.API|Swashbuckle.AspNetCore|
+|Ordering.Application|AutoMapper|
+|Ordering.Application|FluentValidation|
+|Ordering.Application|MediatR|
 |Oredering.Infrastructure|Microsoft.EntityFrameworkCore|
 |Oredering.Infrastructure|Microsoft.EntityFrameworkCore.Design|
 |Oredering.Infrastructure|Microsoft.EntityFrameworkCore.SqlServer|
+|Oredering.Infrastructure|Microsoft.EntityFrameworkCore.Tools|
 
 
 **✔️🍺 Happy Coding 👍😊**
