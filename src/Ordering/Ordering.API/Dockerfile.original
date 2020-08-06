@@ -13,7 +13,7 @@ COPY ["src/Common/EventBusRabbitMq/EventBusRabbitMq.csproj", "src/Common/EventBu
 COPY ["src/Ordering/Ordering.Infrastructure/Ordering.Infrastructure.csproj", "src/Ordering/Ordering.Infrastructure/"]
 RUN dotnet restore "src/Ordering/Ordering.API/Ordering.API.csproj"
 COPY . .
-WORKDIR "/src/src/Ordering/Ordering.API"
+WORKDIR "/src/src/Ordering/Ordering.API/""
 RUN dotnet build "Ordering.API.csproj" -c Release -o /app/build
 
 FROM build AS publish

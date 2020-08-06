@@ -13,11 +13,11 @@ services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
 
-  catalog.api:
-    image: ${DOCKER_REGISTRY-}catalogapi
+  ocelotgateway:
+    image: ${DOCKER_REGISTRY-}ocelotgateway
     build:
       context: .
-      dockerfile: src/Catalog/Catalog.API/Dockerfile
+      dockerfile: src/ApiGateWays/OcelotGateWay/Dockerfile
 
   cart.api:
     image: ${DOCKER_REGISTRY-}cartapi
@@ -25,8 +25,17 @@ services:
       context: .
       dockerfile: src/Cart/Cart.API/Dockerfile
 
+
+  catalog.api:
+    image: ${DOCKER_REGISTRY-}catalogapi
+    build:
+      context: .
+      dockerfile: src/Catalog/Catalog.API/Dockerfile
+
+
   ordering.api:
     image: ${DOCKER_REGISTRY-}orderingapi
     build:
       context: .
       dockerfile: src/Ordering/Ordering.API/Dockerfile
+

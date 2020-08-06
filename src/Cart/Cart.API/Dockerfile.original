@@ -9,7 +9,7 @@ COPY ["src/Cart/Cart.API/Cart.API.csproj", "src/Cart/Cart.API/"]
 COPY ["src/Common/EventBusRabbitMq/EventBusRabbitMq.csproj", "src/Common/EventBusRabbitMq/"]
 RUN dotnet restore "src/Cart/Cart.API/Cart.API.csproj"
 COPY . .
-WORKDIR "/src/src/Cart/Cart.API"
+WORKDIR "/src/Cart/Cart.API/"
 RUN dotnet build "Cart.API.csproj" -c Release -o /app/build
 
 FROM build AS publish

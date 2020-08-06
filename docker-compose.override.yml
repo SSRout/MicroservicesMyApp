@@ -32,48 +32,60 @@ services:
       - "5672:5672"
       - "15672:15672"
 
-
-  catalog.api:
-    container_name: catalogapi
+  ocelotgateway:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    depends_on:
+      - cart.api
+      - catalog.api
+      - ordering.api
+    ports:
+      - "7000:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  cart.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - "ConnectionStrings:Redis=cartdb:6379"
+      - "EventBus:HostName=rabbitmq"
+    depends_on:
+      - cartdb
+      - rabbitmq
+    ports:
+      - "8001:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  catalog.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
       - "CatalogDbSettings:ConnectionString=mongodb://catalogdb:27017"
     depends_on:
       - catalogdb
     ports:
       - "8000:80"
     volumes:
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-
-  cart.api:
-    container_name: cartapi
-    ports:
-      - "8001:80"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:Redis=cartdb:6379"
-      - "EventBus:HostName=rabbitmq"
-    depends_on:
-      - cartdb
-      - rabbitmq
-    volumes:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
 
   ordering.api:
-    container_name: orderingapi
     restart: on-failure
     environment:
-       - ASPNETCORE_ENVIRONMENT=Development
-       - "ConnectionStrings:OrderConnection=Server=orderdb;Database=OrderDb;User Id=sa;Password=Titan#12"
-       - "EventBus:HostName=rabbitmq"
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - "ConnectionStrings:OrderConnection=Server=orderdb;Database=OrderDb;User Id=sa;Password=Titan#12"
+      - "EventBus:HostName=rabbitmq"
     depends_on:
        - orderdb
        - rabbitmq
-    volumes:
-       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
     ports:
-       - "8002:80"
-  
+      - "8002:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

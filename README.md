@@ -40,6 +40,7 @@
 |Oredering.Infrastructure|Microsoft.EntityFrameworkCore.SqlServer|
 |Oredering.Infrastructure|Microsoft.EntityFrameworkCore.Tools|
 |Oredering.Infrastructure|Microsoft.EntityFrameworkCore.InMemory|
+|OcelotGateWay|Ocelot|
 
 
 **✔️🍺 Happy Coding 👍😊**
