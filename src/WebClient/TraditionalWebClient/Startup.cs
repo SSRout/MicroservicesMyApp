@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using TraditionalWebClient.ApiCollection;
+using TraditionalWebClient.ApiCollection.interfaces;
+using TraditionalWebClient.Settings;
 
 namespace TraditionalWebClient
 {
@@ -22,6 +26,17 @@ namespace TraditionalWebClient
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<ApiSettings>(Configuration.GetSection(nameof(ApiSettings)));
+            services.AddSingleton<IApiSettings>(sp => sp.GetRequiredService<IOptions<ApiSettings>>().Value);
+
+            // add for httpClient factory
+            services.AddHttpClient();
+
+            // add api dependecy
+            services.AddTransient<ICatalogApi, CatalogApi>();
+            services.AddTransient<IBasketApi, BasketApi>();
+            services.AddTransient<IOrderApi, OrderApi>();
+
             services.AddRazorPages();
         }
 
