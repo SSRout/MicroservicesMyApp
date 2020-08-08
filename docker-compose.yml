@@ -39,3 +39,10 @@ services:
       context: .
       dockerfile: src/Ordering/Ordering.API/Dockerfile
 
+
+  traditionalwebclient:
+    image: ${DOCKER_REGISTRY-}traditionalwebclient
+    build:
+      context: .
+      dockerfile: src/WebClient/TraditionalWebClient/Dockerfile
+

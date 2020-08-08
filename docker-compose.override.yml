@@ -32,21 +32,8 @@ services:
       - "5672:5672"
       - "15672:15672"
 
-  ocelotgateway:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-    depends_on:
-      - cart.api
-      - catalog.api
-      - ordering.api
-    ports:
-      - "7000:80"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-
   cart.api:
+    container_name: cartapi
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
@@ -62,6 +49,7 @@ services:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
   catalog.api:
+    container_name: catalogapi
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
@@ -75,6 +63,7 @@ services:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
   ordering.api:
+    container_name: orderingapi
     restart: on-failure
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -89,3 +78,37 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+
+  ocelotgateway:
+    container_name: ocelotgateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    depends_on:
+      - cart.api
+      - catalog.api
+      - ordering.api
+    ports:
+      - "7000:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+
+  traditionalwebclient:
+    container_name: traditionalwebclient
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ApiSettings:BaseAddress=ocelotgateway"
+    depends_on:
+      - catalog.api
+      - cart.api
+      - ordering.api
+      - ocelotgateway
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    ports:
+      - "8003:80"
+

@@ -41,6 +41,7 @@
 |Oredering.Infrastructure|Microsoft.EntityFrameworkCore.Tools|
 |Oredering.Infrastructure|Microsoft.EntityFrameworkCore.InMemory|
 |OcelotGateWay|Ocelot|
+|TraditionalWebClient|Microsoft.AspNet.WebApi.Client|
 
 
 **✔️🍺 Happy Coding 👍😊**
