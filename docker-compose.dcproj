@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>7670aa9a-e96a-43fb-9b30-9183cee1b707</ProjectGuid>
+    <ProjectGuid>aa00e76b-2554-4163-98b8-fbeaa4a02067</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>ocelotgateway</DockerServiceName>
