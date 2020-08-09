@@ -5,9 +5,6 @@ services:
   catalogdb:
     container_name: catalogdb
     restart: always
-    volumes:
-        - ${WEBAPP_STORAGE_HOME}/site:/data/db
-        #- ./data:/data/db
     ports:
         - "27017:27017"
 
@@ -32,11 +29,24 @@ services:
       - "5672:5672"
       - "15672:15672"
 
+  catalog.api:
+    container_name: catalogapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "CatalogDbSettings:ConnectionString=mongodb://catalogdb:27017"
+    depends_on:
+      - catalogdb
+    ports:
+      - "8000:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+     
   cart.api:
     container_name: cartapi
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
       - "ConnectionStrings:Redis=cartdb:6379"
       - "EventBus:HostName=rabbitmq"
     depends_on:
@@ -48,26 +58,12 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
-  catalog.api:
-    container_name: catalogapi
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - "CatalogDbSettings:ConnectionString=mongodb://catalogdb:27017"
-    depends_on:
-      - catalogdb
-    ports:
-      - "8000:80"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
   ordering.api:
     container_name: orderingapi
     restart: on-failure
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
       - "ConnectionStrings:OrderConnection=Server=orderdb;Database=OrderDb;User Id=sa;Password=Titan#12"
       - "EventBus:HostName=rabbitmq"
     depends_on:
@@ -84,7 +80,6 @@ services:
     container_name: ocelotgateway
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
     depends_on:
       - cart.api
       - catalog.api
