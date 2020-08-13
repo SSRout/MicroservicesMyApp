@@ -1,5 +1,4 @@
 # Simple Microserive Using  Asp . Net Core
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/ssrout)
 ### Requirements:
 ------------
 - .Net Core 3.1
