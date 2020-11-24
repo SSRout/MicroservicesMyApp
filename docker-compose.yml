@@ -6,13 +6,15 @@ services:
 
   cartdb:
     image: redis
+    
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+
 
   orderdb:
     image: mcr.microsoft.com/mssql/server
 
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
-
+  
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:

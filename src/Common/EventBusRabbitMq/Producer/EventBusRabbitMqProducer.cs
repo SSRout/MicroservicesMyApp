@@ -11,7 +11,7 @@ namespace EventBusRabbitMq.Producer
         private readonly IRabbitMqConnection _connection;
         public EventBusRabbitMqProducer(IRabbitMqConnection connection)
         {
-            _connection = connection;
+            _connection = connection ?? throw new ArgumentNullException(nameof(connection)); ;
         }
 
         public void PublishCartCheckpout(string queueName,CartCheckoutEvent publishModel){
@@ -29,7 +29,7 @@ namespace EventBusRabbitMq.Producer
                 channel.WaitForConfirmsOrDie();
 
                 channel.BasicAcks+=(sender,eveentArgs)=>{
-                    Console.WriteLine("sent RabbitMq");
+                    Console.WriteLine("Sent RabbitMq");
 
                 };
                 channel.ConfirmSelect();

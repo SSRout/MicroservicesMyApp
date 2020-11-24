@@ -12,7 +12,7 @@ namespace EventBusRabbitMq
         private bool _disposed=false;
         public RabbitMqConnection(IConnectionFactory connectionFactory)
         {
-            _connectionFactory = connectionFactory;
+            _connectionFactory = connectionFactory??throw new ArgumentNullException(nameof(connectionFactory));
             if (!IsConnected)
             {
                 TryConnect();

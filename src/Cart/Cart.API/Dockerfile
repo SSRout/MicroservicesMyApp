@@ -7,7 +7,7 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["src/Cart/Cart.API/Cart.API.csproj", "src/Cart/Cart.API/"]
-COPY ["src/Common/EventBusRabbitMq/EventBusRabbitMq.csproj", "src/Common/EventBusRabbitMq/"]
+#COPY ["src/Common/EventBusRabbitMq/EventBusRabbitMq.csproj", "src/Common/EventBusRabbitMq/"]
 RUN dotnet restore "src/Cart/Cart.API/Cart.API.csproj"
 COPY . .
 WORKDIR "/src/src/Cart/Cart.API"

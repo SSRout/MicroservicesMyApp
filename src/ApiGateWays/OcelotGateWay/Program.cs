@@ -23,7 +23,7 @@ namespace OcelotGateWay
                     webBuilder.UseStartup<Startup>();
                 }) .ConfigureAppConfiguration((hostingContext, config) =>
             {
-                config.AddJsonFile($"ocelot.json");
+                config.AddJsonFile("ocelot.json");
                 
                 // for local test use below one, multi env json file not worked
                 //config.AddJsonFile($"configuration.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true);

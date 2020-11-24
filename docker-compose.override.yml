@@ -13,6 +13,13 @@ services:
     restart: always
     ports:
        - "6379:6379"
+       
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 
   orderdb:
     container_name: orderdb
@@ -22,13 +29,6 @@ services:
       SA_PASSWORD: "Titan#12"
       ACCEPT_EULA: "Y"
 
-  rabbitmq:
-    container_name: rabbitmq
-    restart: always
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-
   catalog.api:
     container_name: catalogapi
     environment:
@@ -36,11 +36,11 @@ services:
       - "CatalogDbSettings:ConnectionString=mongodb://catalogdb:27017"
     depends_on:
       - catalogdb
-    ports:
-      - "8000:80"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    ports:
+      - "8000:80"
 
      
   cart.api:
@@ -52,12 +52,11 @@ services:
     depends_on:
       - cartdb
       - rabbitmq
-    ports:
-      - "8001:80"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-
+    ports:
+      - "8001:80"
 
   ordering.api:
     container_name: orderingapi
@@ -69,12 +68,11 @@ services:
     depends_on:
        - orderdb
        - rabbitmq
-    ports:
-      - "8002:80"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-
+    ports:
+      - "8002:80"
 
   ocelotgateway:
     container_name: ocelotgateway
@@ -83,12 +81,12 @@ services:
     depends_on:
       - cart.api
       - catalog.api
-      - ordering.api
-    ports:
-      - "7000:80"
+      - ordering.api 
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    ports:
+      - "7000:80"
 
 
   traditionalwebclient:

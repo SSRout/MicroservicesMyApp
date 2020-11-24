@@ -1,6 +1,6 @@
 {
-    "Routes": [
-      {
+    "ReRoutes": [
+      {//catlogapi
         "DownstreamPathTemplate": "/api/v1/Catalog",
         "DownstreamScheme": "http",
         "DownstreamHostAndPorts": [
@@ -36,7 +36,7 @@
         "UpstreamPathTemplate": "/Catalog/GetProductByCategory/{category}",
         "UpstreamHttpMethod": [ "GET" ]
       },
-      {
+      {//cartapi
         "DownstreamPathTemplate": "/api/v1/Cart",
         "DownstreamScheme": "http",
         "DownstreamHostAndPorts": [
@@ -72,7 +72,7 @@
         "UpstreamPathTemplate": "/Cart/Checkout",
         "UpstreamHttpMethod": [ "POST" ]
       },
-      {
+      {//orderapi
         "DownstreamPathTemplate": "/api/v1/Order",
         "DownstreamScheme": "http",
         "DownstreamHostAndPorts": [
