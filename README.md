@@ -42,5 +42,7 @@
 |OcelotGateWay|Ocelot|
 |TraditionalWebClient|Microsoft.AspNet.WebApi.Client|
 
+[Reference link](https://www.udemy.com/course/microservices-architecture-and-implementation-on-dotnet/)
+###### Thanks to Mehmet Özkaya
 
 **✔️🍺 Happy Coding 👍😊**
