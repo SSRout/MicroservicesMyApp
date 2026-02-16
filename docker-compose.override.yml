@@ -1,19 +1,16 @@
-version: '3.4'
-
 services:
-
   catalogdb:
     container_name: catalogdb
     restart: always
     ports:
-        - "27017:27017"
+      - "27017:27017"
 
   cartdb:
     container_name: cartdb
     restart: always
     ports:
-       - "6379:6379"
-       
+      - "6379:6379"
+
   rabbitmq:
     container_name: rabbitmq
     restart: always
@@ -24,7 +21,7 @@ services:
   orderdb:
     container_name: orderdb
     ports:
-       - "1433:1433"
+      - "1433:1433"
     environment:
       SA_PASSWORD: "Titan#12"
       ACCEPT_EULA: "Y"
@@ -42,7 +39,6 @@ services:
     ports:
       - "8000:80"
 
-     
   cart.api:
     container_name: cartapi
     environment:
@@ -66,8 +62,8 @@ services:
       - "ConnectionStrings:OrderConnection=Server=orderdb,1433;Database=OrderDb;User Id=sa;Password=Titan#12"
       - "EventBus:HostName=rabbitmq"
     depends_on:
-       - orderdb
-       - rabbitmq
+      - orderdb
+      - rabbitmq
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
@@ -81,13 +77,13 @@ services:
     depends_on:
       - cart.api
       - catalog.api
-      - ordering.api 
+      - ordering.api
+      - auth.api
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     ports:
       - "7000:80"
-
 
   traditionalwebclient:
     container_name: traditionalwebclient
@@ -105,3 +101,19 @@ services:
     ports:
       - "8003:80"
 
+  auth.api:
+    container_name: authapi
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8010:8003"
+
+  angularwebclient:
+    container_name: angularwebclient
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - ocelotgateway
+      - auth.api
+    ports:
+      - "3000:3000"

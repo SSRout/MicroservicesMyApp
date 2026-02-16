@@ -34,7 +34,7 @@
               Products
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="currentUser$ | async as user">
             <a class="nav-link" routerLink="/orders" routerLinkActive="active">
               Orders
             </a>
@@ -51,6 +51,60 @@
               >
               Cart
             </a>
+          </li>
+
+          <!-- Authentication UI -->
+          <li class="nav-item" *ngIf="!(currentUser$ | async)">
+            <a class="nav-link" routerLink="/login" routerLinkActive="active">
+              <mat-icon class="me-1">login</mat-icon>
+              Sign In
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="!(currentUser$ | async)">
+            <a
+              class="nav-link"
+              routerLink="/register"
+              routerLinkActive="active"
+            >
+              <mat-icon class="me-1">person_add</mat-icon>
+              Sign Up
+            </a>
+          </li>
+
+          <!-- User Email & Logout -->
+          <li class="nav-item dropdown" *ngIf="currentUser$ | async as user">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="userDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <mat-icon class="me-1">person</mat-icon>
+              {{ user.email }}
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="userDropdown"
+            >
+              <li>
+                <span class="dropdown-item-text"
+                  >Welcome, {{ user.full_name }}!</span
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  (click)="logout()"
+                  style="cursor: pointer"
+                >
+                  <mat-icon class="me-2">logout</mat-icon>
+                  Sign Out
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
