@@ -1,4 +1,4 @@
-version: '3.4'
+version: "3.4"
 
 services:
   catalogdb:
@@ -6,28 +6,24 @@ services:
 
   cartdb:
     image: redis
-    
+
   rabbitmq:
     image: rabbitmq:3-management-alpine
-
 
   orderdb:
     image: mcr.microsoft.com/mssql/server
 
-  
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
       context: .
       dockerfile: src/Catalog/Catalog.API/Dockerfile
 
-
   cart.api:
     image: ${DOCKER_REGISTRY-}cartapi
     build:
       context: .
       dockerfile: src/Cart/Cart.API/Dockerfile
-
 
   ordering.api:
     image: ${DOCKER_REGISTRY-}orderingapi
@@ -41,6 +37,11 @@ services:
       context: .
       dockerfile: src/ApiGateWays/OcelotGateWay/Dockerfile
 
+  auth.api:
+    image: ${DOCKER_REGISTRY-}authapi
+    build:
+      context: .
+      dockerfile: src/Services/AuthService/Dockerfile
 
   traditionalwebclient:
     image: ${DOCKER_REGISTRY-}traditionalwebclient
@@ -48,3 +49,8 @@ services:
       context: .
       dockerfile: src/WebClient/TraditionalWebClient/Dockerfile
 
+  angularwebclient:
+    image: ${DOCKER_REGISTRY-}angularwebclient
+    build:
+      context: src/WebClient/AngularWebClient
+      dockerfile: Dockerfile

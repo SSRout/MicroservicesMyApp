@@ -7,12 +7,25 @@ import { CheckoutComponent } from '@features/checkout/checkout.component';
 import { ConfirmationComponent } from '@features/orders/confirmation.component';
 import { OrdersComponent } from '@features/orders/orders.component';
 import { ContactComponent } from '@features/contact/contact.component';
+import { LoginComponent } from '@features/auth/login.component';
+import { RegisterComponent } from '@features/auth/register.component';
+import { AuthGuard } from '@core/guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     data: { title: 'Home' },
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: { title: 'Login' },
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+    data: { title: 'Register' },
   },
   {
     path: 'products',
@@ -32,16 +45,19 @@ export const routes: Routes = [
   {
     path: 'checkout',
     component: CheckoutComponent,
+    canActivate: [AuthGuard],
     data: { title: 'Checkout' },
   },
   {
     path: 'confirmation',
     component: ConfirmationComponent,
+    canActivate: [AuthGuard],
     data: { title: 'Order Confirmation' },
   },
   {
     path: 'orders',
     component: OrdersComponent,
+    canActivate: [AuthGuard],
     data: { title: 'My Orders' },
   },
   {
