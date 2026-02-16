@@ -523,9 +523,6 @@ ALLOWED_ORIGINS=https://yourdomain.com
 - [Docker Documentation](https://docs.docker.com)
 - [RabbitMQ Documentation](https://www.rabbitmq.com/documentation.html)
 
-## 📄 License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## 🤝 Contributing
 
@@ -566,8 +563,8 @@ ng serve --port 4300
 
 ## 📄 License
 
-MIT
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
-Built with ❤️ using Angular 17
+Built with ❤️✔️🍺 Happy Coding 👍😊

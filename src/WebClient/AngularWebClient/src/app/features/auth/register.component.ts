@@ -77,20 +77,20 @@ export class RegisterComponent implements OnInit {
     this.isLoading = true;
     const { fullName, email, password } = this.registerForm.value;
 
-    this.authService.register(email, fullName, password).subscribe(
-      () => {
+    this.authService.register(email, fullName, password).subscribe({
+      next: () => {
         this.isLoading = false;
         this.snackBar.open('Account created successfully!', 'Close', {
           duration: 3000,
         });
         this.router.navigate(['/']);
       },
-      (error) => {
+      error: (error) => {
         this.isLoading = false;
         const message =
           error?.error?.detail || 'Registration failed. Please try again.';
         this.snackBar.open(message, 'Close', { duration: 3000 });
       },
-    );
+    });
   }
 }
