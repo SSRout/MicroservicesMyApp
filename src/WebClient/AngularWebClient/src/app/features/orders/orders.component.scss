@@ -1,0 +1,16 @@
+::ng-deep {
+  .table {
+    tr {
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #f9f9f9;
+      }
+    }
+  }
+
+  .badge {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,6 @@
+
+  angularwebclient:
+    image: ${DOCKER_REGISTRY-}angularwebclient
+    build:
+      context: .
+      dockerfile: src/WebClient/AngularWebClient/Dockerfile

@@ -1,0 +1,126 @@
+<div class="container py-5">
+  <h1 class="fw-bold mb-4">Shopping Cart</h1>
+
+  <div
+    *ngIf="!basket || !basket.items || basket.items.length === 0"
+    class="alert alert-info"
+  >
+    Your cart is empty.
+    <a href="/products" class="alert-link">Continue shopping</a>
+  </div>
+
+  <div *ngIf="basket && basket.items && basket.items.length > 0" class="row">
+    <div class="col-lg-8">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="table-light">
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of basket.items">
+              <td>
+                <div class="d-flex align-items-center">
+                  <img
+                    [src]="'assets/images/' + item.imageFile"
+                    width="50"
+                    height="50"
+                    class="rounded me-3"
+                    [alt]="item.productName"
+                    onerror="this.src = 'assets/images/placeholder.png'"
+                  />
+                  <span>{{ item.productName }}</span>
+                </div>
+              </td>
+              <td>${{ item.price | number: "1.2-2" }}</td>
+              <td>
+                <input
+                  type="number"
+                  class="form-control quantity-input"
+                  [value]="item.quantity"
+                  (change)="updateQuantity(item, +$any($event.target).value)"
+                  min="1"
+                />
+              </td>
+              <td class="fw-bold">
+                ${{ item.price * item.quantity | number: "1.2-2" }}
+              </td>
+              <td>
+                <button
+                  class="btn btn-danger btn-sm"
+                  (click)="removeItem(item.productId)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-flex justify-content-between mt-4">
+        <button class="btn btn-secondary" (click)="continueShopping()">
+          <mat-icon class="me-2">arrow_back</mat-icon>Continue Shopping
+        </button>
+        <button class="btn btn-danger" (click)="clearCart()">
+          <mat-icon class="me-2">delete_sweep</mat-icon>Clear Cart
+        </button>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Order Summary</h5>
+          <hr />
+
+          <div class="row mb-2">
+            <div class="col-6">Subtotal:</div>
+            <div class="col-6 text-end">
+              ${{ totalPrice | number: "1.2-2" }}
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-6">Shipping:</div>
+            <div class="col-6 text-end">Free</div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-6">Tax:</div>
+            <div class="col-6 text-end">
+              ${{ totalPrice * 0.1 | number: "1.2-2" }}
+            </div>
+          </div>
+
+          <hr />
+          <div class="row fw-bold">
+            <div class="col-6">Total:</div>
+            <div class="col-6 text-end">
+              ${{ totalPrice * 1.1 | number: "1.2-2" }}
+            </div>
+          </div>
+
+          <button
+            class="btn btn-primary w-100 mt-4"
+            (click)="continueShipping()"
+          >
+            <mat-icon class="me-2">payment</mat-icon>Proceed to Checkout
+          </button>
+        </div>
+      </div>
+
+      <div class="card mt-3">
+        <div class="card-body">
+          <h6 class="card-title">Free Returns</h6>
+          <p class="card-text small text-muted mb-0">
+            30-day free returns. No questions asked. See details.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+::ng-deep {
+  .success-animation {
+    display: flex;
+    justify-content: center;
+    animation: slideDown 0.5s ease-out;
+  }
+
+  .success-icon {
+    font-size: 80px;
+    width: 80px;
+    height: 80px;
+    color: #28a745;
+    animation: scaleUp 0.5s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleUp {
+    from {
+      transform: scale(0.5);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .btn-group {
+    gap: 10px;
+  }
+}

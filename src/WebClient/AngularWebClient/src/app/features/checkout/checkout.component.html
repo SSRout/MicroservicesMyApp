@@ -1,0 +1,244 @@
+<div class="container py-5">
+  <h1 class="fw-bold mb-4">Checkout</h1>
+
+  <div class="row">
+    <div class="col-lg-8">
+      <form [formGroup]="checkoutForm" (ngSubmit)="submitOrder()">
+        <!-- Shipping Information -->
+        <div class="card mb-4">
+          <div class="card-header bg-light">
+            <h5 class="mb-0">Shipping Information</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>First Name</mat-label>
+                  <input matInput formControlName="firstName" />
+                  <mat-error
+                    *ngIf="checkoutForm.get('firstName')?.hasError('required')"
+                  >
+                    First name is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 mb-3">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Last Name</mat-label>
+                  <input matInput formControlName="lastName" />
+                  <mat-error
+                    *ngIf="checkoutForm.get('lastName')?.hasError('required')"
+                  >
+                    Last name is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Email Address</mat-label>
+                  <input matInput formControlName="emailAddress" />
+                  <mat-error
+                    *ngIf="
+                      checkoutForm.get('emailAddress')?.hasError('required')
+                    "
+                  >
+                    Email is required
+                  </mat-error>
+                  <mat-error
+                    *ngIf="checkoutForm.get('emailAddress')?.hasError('email')"
+                  >
+                    Please enter a valid email
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Shipping Address</mat-label>
+                  <input matInput formControlName="shippingAddress" />
+                  <mat-error
+                    *ngIf="
+                      checkoutForm.get('shippingAddress')?.hasError('required')
+                    "
+                  >
+                    Address is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Country</mat-label>
+                  <input matInput formControlName="country" />
+                  <mat-error
+                    *ngIf="checkoutForm.get('country')?.hasError('required')"
+                  >
+                    Country is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4 mb-3">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>State</mat-label>
+                  <input matInput formControlName="state" />
+                  <mat-error
+                    *ngIf="checkoutForm.get('state')?.hasError('required')"
+                  >
+                    State is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4 mb-3">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Zip Code</mat-label>
+                  <input matInput formControlName="zipCode" />
+                  <mat-error
+                    *ngIf="checkoutForm.get('zipCode')?.hasError('required')"
+                  >
+                    Zip code is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Information -->
+        <div class="card mb-4">
+          <div class="card-header bg-light">
+            <h5 class="mb-0">Payment Information</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Name on Card</mat-label>
+                  <input matInput formControlName="cardName" />
+                  <mat-error
+                    *ngIf="checkoutForm.get('cardName')?.hasError('required')"
+                  >
+                    Card name is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Card Number</mat-label>
+                  <input
+                    matInput
+                    formControlName="cardNumber"
+                    placeholder="1234 5678 9012 3456"
+                  />
+                  <mat-error
+                    *ngIf="checkoutForm.get('cardNumber')?.hasError('required')"
+                  >
+                    Card number is required
+                  </mat-error>
+                  <mat-error
+                    *ngIf="
+                      checkoutForm.get('cardNumber')?.hasError('minlength')
+                    "
+                  >
+                    Card number must be at least 16 digits
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Expiration Date</mat-label>
+                  <input
+                    matInput
+                    formControlName="expiration"
+                    placeholder="MM/YY"
+                  />
+                  <mat-error
+                    *ngIf="checkoutForm.get('expiration')?.hasError('required')"
+                  >
+                    Expiration date is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 mb-3">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>CVV</mat-label>
+                  <input
+                    matInput
+                    formControlName="cvv"
+                    type="password"
+                    placeholder="123"
+                  />
+                  <mat-error
+                    *ngIf="checkoutForm.get('cvv')?.hasError('required')"
+                  >
+                    CVV is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="button" class="btn btn-secondary" (click)="goBack()">
+            <mat-icon class="me-2">arrow_back</mat-icon>Back to Cart
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="isSubmitting"
+          >
+            <mat-icon class="me-2" *ngIf="!isSubmitting">check_circle</mat-icon>
+            <mat-spinner
+              diameter="20"
+              *ngIf="isSubmitting"
+              class="me-2"
+            ></mat-spinner>
+            {{ isSubmitting ? "Processing..." : "Complete Order" }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="col-lg-4">
+      <div class="card shadow-sm sticky-top">
+        <div class="card-header bg-light">
+          <h5 class="mb-0">Order Summary</h5>
+        </div>
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-6">Subtotal:</div>
+            <div class="col-6 text-end">
+              ${{ totalPrice | number: "1.2-2" }}
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-6">Shipping:</div>
+            <div class="col-6 text-end">Free</div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-6">Tax (10%):</div>
+            <div class="col-6 text-end">
+              ${{ totalPrice * 0.1 | number: "1.2-2" }}
+            </div>
+          </div>
+          <hr />
+          <div class="row fw-bold fs-5">
+            <div class="col-6">Total:</div>
+            <div class="col-6 text-end">
+              ${{ totalPrice * 1.1 | number: "1.2-2" }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

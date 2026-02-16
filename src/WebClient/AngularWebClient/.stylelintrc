@@ -1,0 +1,8 @@
+lint:
+  use_tabs: false
+
+sass:
+  indentation: 2
+
+extends:
+  - "property-ordering"

@@ -1,0 +1,16 @@
+::ng-deep {
+  .contact-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: #007bff;
+  }
+
+  mat-form-field {
+    display: flex;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+}

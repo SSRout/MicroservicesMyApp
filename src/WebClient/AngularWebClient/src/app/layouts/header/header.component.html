@@ -1,0 +1,59 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand fw-bold" routerLink="/">
+        <mat-icon class="me-2">shopping_cart</mat-icon>
+        E-Commerce
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="/"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="/products"
+              routerLinkActive="active"
+            >
+              Products
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/orders" routerLinkActive="active">
+              Orders
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/contact" routerLinkActive="active">
+              Contact
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/cart" routerLinkActive="active">
+              <mat-icon matBadge="{{ cartItemCount }}" matBadgeColor="warn"
+                >shopping_cart</mat-icon
+              >
+              Cart
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
