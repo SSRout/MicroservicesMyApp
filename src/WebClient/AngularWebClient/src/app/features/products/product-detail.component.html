@@ -1,0 +1,73 @@
+<div class="container py-5" *ngIf="!loading && product">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="product-image-container">
+        <img
+          [src]="'assets/images/' + product.imageFile"
+          class="img-fluid rounded"
+          [alt]="product.name"
+          onerror="this.src = 'assets/images/placeholder.png'"
+        />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h1 class="fw-bold mb-3">{{ product.name }}</h1>
+      <p class="text-muted fs-5 mb-4">{{ product.description }}</p>
+
+      <div class="price-section mb-4">
+        <h2 class="text-primary fw-bold">
+          ${{ product.price | number: "1.2-2" }}
+        </h2>
+      </div>
+
+      <div class="quantity-section mb-4">
+        <label class="form-label fw-bold">Quantity:</label>
+        <div class="input-group" style="max-width: 150px">
+          <button
+            class="btn btn-outline-secondary"
+            (click)="decreaseQuantity()"
+            type="button"
+          >
+            -
+          </button>
+          <input
+            type="text"
+            class="form-control text-center"
+            [value]="quantity"
+            readonly
+          />
+          <button
+            class="btn btn-outline-secondary"
+            (click)="increaseQuantity()"
+            type="button"
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      <div class="action-buttons mb-4">
+        <button class="btn btn-primary btn-lg me-2" (click)="addToCart()">
+          <mat-icon class="me-2">shopping_cart</mat-icon>Add to Cart
+        </button>
+        <button class="btn btn-outline-secondary btn-lg" (click)="goBack()">
+          <mat-icon class="me-2">arrow_back</mat-icon>Back to Products
+        </button>
+      </div>
+
+      <div class="features">
+        <h5>Key Features:</h5>
+        <ul class="list-group">
+          <li class="list-group-item">Free Shipping on Orders Over $50</li>
+          <li class="list-group-item">30-Day Money-Back Guarantee</li>
+          <li class="list-group-item">Secure Checkout</li>
+          <li class="list-group-item">24/7 Customer Support</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading" class="text-center py-5">
+  <mat-spinner></mat-spinner>
+</div>

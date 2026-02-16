@@ -1,0 +1,22 @@
+::ng-deep {
+  .quantity-input {
+    max-width: 80px;
+    text-align: center;
+  }
+
+  .table {
+    vertical-align: middle;
+
+    tbody tr {
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #f9f9f9;
+      }
+    }
+  }
+
+  .card {
+    border: 1px solid #e0e0e0;
+  }
+}

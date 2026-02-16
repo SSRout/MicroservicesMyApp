@@ -1,0 +1,10 @@
+
+
+  angularwebclient:
+    container_name: angularwebclient
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - ocelotgateway
+    ports:
+      - "3000:3000"

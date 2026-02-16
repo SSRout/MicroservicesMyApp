@@ -1,0 +1,13 @@
+::ng-deep {
+  .sticky-top {
+    top: 20px;
+  }
+
+  mat-form-field {
+    display: flex;
+  }
+
+  .card {
+    border: 1px solid #e0e0e0;
+  }
+}

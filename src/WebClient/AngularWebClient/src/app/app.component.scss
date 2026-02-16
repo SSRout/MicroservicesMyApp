@@ -1,0 +1,19 @@
+::ng-deep {
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+  }
+
+  .main-content {
+    min-height: calc(100vh - 200px);
+    flex: 1;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .text-decoration-none:hover {
+    color: inherit;
+  }
+}

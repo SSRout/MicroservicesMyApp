@@ -1,0 +1,23 @@
+::ng-deep {
+  footer {
+    margin-top: auto;
+    background: linear-gradient(to right, #1a1a1a, #2d2d2d);
+
+    a {
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #007bff !important;
+      }
+    }
+
+    h5 {
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    ul li {
+      margin-bottom: 8px;
+    }
+  }
+}
