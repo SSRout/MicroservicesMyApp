@@ -16,23 +16,58 @@ This project implements a complete microservices architecture with:
 
 ## 🚀 Quick Start
 
-### Docker Compose (Recommended - Everything in One Command)
+### Automated Setup - Single Command
 
 ```bash
 # Navigate to project root
 cd e:\GitRepo\MicroservicesMyApp
 
-# Start all services
-docker-compose up --build
+# Option 1: Run startup script (Windows)
+.\start.ps1
 
-# Access the applications:
-# Angular Web Client:     http://localhost:3000
-# Ocelot Gateway:         http://localhost:7000
-# FastAPI Auth Service:   http://localhost:8010
-# Catalog API:            http://localhost:8000
-# Cart API:               http://localhost:8001
-# Ordering API:           http://localhost:8002
+# Option 2: Run batch script (Windows)
+start.bat
+
+# Option 3: Direct Docker command
+docker-compose down -v && docker-compose up --build
+
+# Wait for all services to be ready (2-3 minutes)
 ```
+
+### 📍 All Service URLs (After Running Docker)
+
+#### **Frontend Applications**
+
+- 🌐 **Angular Web Client**: http://localhost:3000
+- 🌐 **Traditional Web Client**: http://localhost:8003
+
+#### **API Endpoints**
+
+- 🚪 **API Gateway (Ocelot)**: http://localhost:7000
+- 📦 **Catalog API**: http://localhost:8000
+- 🛒 **Cart API**: http://localhost:8001
+- 📋 **Ordering API**: http://localhost:8002
+- 🔐 **Auth Service (FastAPI)**: http://localhost:8010
+
+#### **Message Queue & Databases**
+
+- 🐇 **RabbitMQ Management Console**: http://localhost:15672 (guest/guest)
+- 📊 **MongoDB**: localhost:27017
+- 💾 **Redis**: localhost:6381
+- 🗄️ **SQL Server**: localhost:1433 (sa / Titan#12)
+
+#### **Direct Service Access**
+
+```
+Catalog Service:   http://localhost:8000/swagger/index.html
+Cart Service:      http://localhost:8001/swagger/index.html
+Ordering Service:  http://localhost:8002/swagger/index.html
+FastAPI Docs:      http://localhost:8010/docs
+```
+
+### 📋 Complete URL Reference
+
+See [URLS.md](URLS.md) for complete endpoint documentation, API examples, and troubleshooting guide.
 
 ### Demo Credentials
 
@@ -524,7 +559,6 @@ ALLOWED_ORIGINS=https://yourdomain.com
 - [FastAPI Documentation](https://fastapi.tiangolo.com)
 - [Docker Documentation](https://docs.docker.com)
 - [RabbitMQ Documentation](https://www.rabbitmq.com/documentation.html)
-
 
 ## 🤝 Contributing
 

@@ -12,7 +12,7 @@ namespace Ordering.Application.Mapper
             var config = new MapperConfiguration(cfg =>
             {
                 // This line ensures that internal properties are also mapped over.
-                cfg.ShouldMapProperty = p => p.GetMethod.IsPublic || p.GetMethod.IsAssembly;
+                cfg.ShouldMapProperty = p => p.GetMethod?.IsPublic == true || p.GetMethod?.IsAssembly == true;
                 cfg.AddProfile<OrderMappingProfile>();
             });
             var mapper = config.CreateMapper();
