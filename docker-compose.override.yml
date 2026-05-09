@@ -9,7 +9,7 @@ services:
     container_name: cartdb
     restart: always
     ports:
-      - "6379:6379"
+      - "6380:6379"
 
   rabbitmq:
     container_name: rabbitmq
