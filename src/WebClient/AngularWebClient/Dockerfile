@@ -1,4 +1,4 @@
-FROM node:20-alpine as builder
+FROM node:24-alpine as builder
 
 WORKDIR /app
 
@@ -6,7 +6,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 
 # Copy source code
 COPY . .
@@ -15,7 +15,7 @@ COPY . .
 RUN npm run build:prod
 
 # Production stage
-FROM node:20-alpine
+FROM node:24-alpine
 
 WORKDIR /app
 

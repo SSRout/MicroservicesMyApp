@@ -44,8 +44,8 @@ export class AuthService {
         password,
       })
       .pipe(
-        tap((response) => this.handleAuthResponse(response)),
-        catchError((error) => throwError(() => error)),
+        tap((response: AuthResponse) => this.handleAuthResponse(response)),
+        catchError((error: any) => throwError(() => error)),
       );
   }
 
@@ -59,8 +59,8 @@ export class AuthService {
         password,
       })
       .pipe(
-        tap((response) => this.handleAuthResponse(response)),
-        catchError((error) => throwError(() => error)),
+        tap((response: AuthResponse) => this.handleAuthResponse(response)),
+        catchError((error: any) => throwError(() => error)),
       );
   }
 

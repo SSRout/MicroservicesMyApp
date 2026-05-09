@@ -268,6 +268,8 @@ cd src/WebClient/AngularWebClient
 npm install
 
 # Start development server
+npx ng serve
+or
 ng serve
 # Access: http://localhost:4200
 

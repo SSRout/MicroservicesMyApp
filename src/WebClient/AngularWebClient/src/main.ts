@@ -3,7 +3,6 @@ import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {
   provideHttpClient,
-  withInterceptors,
   HTTP_INTERCEPTORS,
 } from '@angular/common/http';
 import { AppComponent } from './app/app.component';
